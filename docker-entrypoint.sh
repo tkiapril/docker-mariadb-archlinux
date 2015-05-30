@@ -17,7 +17,7 @@ if [ "$1" = 'mysqld' ]; then
 		fi
 		
 		echo 'Running mysql_install_db ...'
-		mysql_install_db --datadir="$DATADIR"
+		sudo mysql_install_db --user=mysql --basedir=/usr --datadir="$DATADIR"
 		echo 'Finished mysql_install_db'
 		
 		# These statements _must_ be on individual lines, and _must_ end with
@@ -50,6 +50,7 @@ if [ "$1" = 'mysqld' ]; then
 	fi
 	
 	chown -R mysql:mysql "$DATADIR"
+	chown -R mysql:mysql "/run/mysqld"
 fi
 
 exec "$@"
